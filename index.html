@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>Event Calendar — Advanced UI</title>
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <link rel="stylesheet" href="style.css" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
+</head>
+<body>
+  <!-- Top Navigation -->
+  <header class="topbar">
+    <div class="brand">📅 Event Calendar</div>
+
+    <div class="month-nav">
+      <button id="prevMonth" class="icon-btn" title="Previous month">‹</button>
+      <div id="currentMonthLabel" class="month-label">—</div>
+      <button id="nextMonth" class="icon-btn" title="Next month">›</button>
+      <button id="todayBtn" class="pill">Today</button>
+    </div>
+
+    <div class="right-controls">
+      <input id="searchInput" class="search" type="text" placeholder="Search title…" />
+      <button id="openAddPanel" class="primary">Add Event</button>
+      <button id="toggleTheme" class="icon-btn" title="Toggle theme">🌗</button>
+    </div>
+  </header>
+
+  <!-- Main App Grid -->
+  <main class="app-grid">
+    <!-- Left: Calendar -->
+    <section class="panel calendar-panel" aria-label="Calendar">
+      <div class="calendar-head">
+        <div>Sun</div><div>Mon</div><div>Tue</div><div>Wed</div><div>Thu</div><div>Fri</div><div>Sat</div>
+      </div>
+      <div id="calendarGrid" class="calendar-grid" role="grid"></div>
+      <div class="calendar-footer">
+        <div class="legend">
+          <span class="chip today-chip">Today</span>
+          <span class="chip selected-chip">Selected</span>
+          <span class="chip has-chip">Has events</span>
+        </div>
+      </div>
+    </section>
+
+    <!-- Right: Events & Form -->
+    <section class="panel events-panel" aria-label="Events">
+      <!-- Drawer / Inline Form (IDs must match JS) -->
+      <div id="drawer" class="drawer">
+        <form id="eventForm" novalidate class="drawer-form">
+          <input id="title" type="text" placeholder="Event title" required />
+          <input id="date" type="date" required />
+          <input id="time" type="time" required />
+          <select id="category" aria-label="Category">
+            <option value="General">General</option>
+            <option value="Work">Work</option>
+            <option value="Personal">Personal</option>
+            <option value="Urgent">Urgent</option>
+          </select>
+          <div class="drawer-actions">
+            <button id="saveBtn" type="submit" class="primary">Save</button>
+            <button id="cancelBtn" type="button" class="ghost">Cancel</button>
+          </div>
+          <input id="editId" type="hidden" />
+        </form>
+      </div>
+
+      <!-- Events toolbar -->
+      <div class="events-toolbar">
+        <div class="events-title">
+          <span id="eventsForLabel">All Events</span>
+        </div>
+        <div class="toolbar-actions">
+          <button id="showAllBtn" class="pill">Show All</button>
+          <button id="clearAllBtn" class="pill danger">Clear All</button>
+          <button id="exportBtn" class="pill">Export</button>
+          <label class="pill file-pill">
+            Import
+            <input id="importFile" type="file" accept="application/json,.json" />
+          </label>
+        </div>
+      </div>
+
+      <!-- Content split: list + upcoming -->
+      <div class="events-split">
+        <ul id="eventList" class="list" aria-label="Event list"></ul>
+
+        <aside class="upcoming">
+          <h3 class="upcoming-title">🔔 Upcoming (next 3)</h3>
+          <ul id="upcomingList" class="list small"></ul>
+        </aside>
+      </div>
+    </section>
+  </main>
+
+  <!-- Toast (non-blocking notifications) -->
+  <div id="toast" role="status" aria-live="polite"></div>
+
+  <!-- Your existing JS -->
+  <script src="script.js"></script>
+</body>
+</html>
